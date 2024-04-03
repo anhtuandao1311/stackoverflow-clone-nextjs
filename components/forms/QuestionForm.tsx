@@ -20,6 +20,7 @@ import { Badge } from "../ui/badge"
 import Image from "next/image"
 import { createQuestion } from "@/lib/actions/question.action"
 import { usePathname, useRouter } from "next/navigation"
+import React from "react"
 
 interface Props {
   mongoUserId: string
@@ -70,7 +71,7 @@ export default function QuestionForm({ mongoUserId }: Props) {
       e.preventDefault()
       const tagInput = e.target as HTMLInputElement
       const tagValue = tagInput.value.trim()
-      if (tagValue != "") {
+      if (tagValue !== "") {
         if (tagValue.length > 15) {
           form.setError("tags", {
             type: "maxLength",
