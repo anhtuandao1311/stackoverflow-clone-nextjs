@@ -14,13 +14,12 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { QuestionSchemaType, questionSchema } from "@/lib/validations"
-import { useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { Editor } from "@tinymce/tinymce-react"
 import { Badge } from "../ui/badge"
 import Image from "next/image"
 import { createQuestion } from "@/lib/actions/question.action"
 import { usePathname, useRouter } from "next/navigation"
-import React from "react"
 
 interface Props {
   mongoUserId: string
