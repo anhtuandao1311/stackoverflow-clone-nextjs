@@ -9,7 +9,7 @@ export default function LocalSearchBar({
   route: string
 }) {
   return (
-    <div className="background-light800_darkgradient relative flex min-h-[56px] flex-1 items-center gap-1 rounded-xl px-4">
+    <div className="bg-light-800 dark:bg-dark-300 relative flex min-h-[56px] flex-1 items-center gap-1 rounded-xl px-4">
       <Image
         src="/assets/icons/search.svg"
         alt="Search"
@@ -20,7 +20,7 @@ export default function LocalSearchBar({
       <Input
         type="text"
         placeholder={placeholder}
-        className="no-focus paragraph-regular placeholder text-dark400_light700 background-light800_darkgradient border-none shadow-none "
+        className="no-focus bg-light-800 dark:bg-dark-300 paragraph-regular placeholder text-dark400_light700 border-none shadow-none "
       />
     </div>
   )

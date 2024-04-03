@@ -21,7 +21,7 @@ function NavContent() {
   return (
     <section className="flex h-full flex-col gap-2 pt-7 mb-4">
       {sidebarLinks.map((link) => {
-        const isActive = pathname.includes(link.route)
+        const isActive = pathname === link.route
         return (
           <SheetClose asChild key={link.route}>
             <Link

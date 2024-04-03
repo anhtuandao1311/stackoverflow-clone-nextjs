@@ -51,7 +51,7 @@ export default function LeftSideBar() {
               <span className="text-primary-500 max-lg:hidden">Sign In</span>
             </Button>
           </Link>
-          <Link href="/sign-in">
+          <Link href="/sign-up">
             <Button className="small-medium light-border-2 btn-tertiary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none text-dark400_light900">
               <Image
                 src="/assets/icons/sign-up.svg"

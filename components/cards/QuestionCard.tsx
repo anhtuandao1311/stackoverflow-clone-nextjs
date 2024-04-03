@@ -1,21 +1,22 @@
 import Link from "next/link"
-import { title } from "process"
 import RenderTag from "../shared/RenderTag"
 import Metric from "../shared/Metric"
 import { formatNumber, getTimeStamp } from "@/lib/utils"
+import { ITag } from "@/database/tag.model"
+import { IUser } from "@/database/user.model"
 
 interface Props {
   id: string
   title: string
-  tags: { _id: string; name: string }[]
-  author: { _id: string; name: string; picture: string }
+  tags: ITag[]
+  author: IUser
   upvotes: number
   views: number
   answers: Object[]
   createdAt: Date
 }
 
-export default function QuestionCards({
+export default function QuestionCard({
   id,
   title,
   tags,

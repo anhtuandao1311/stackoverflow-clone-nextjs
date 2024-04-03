@@ -5,46 +5,11 @@ import { Button } from "@/components/ui/button"
 import { HomePageFilters } from "@/constants/filters"
 import Link from "next/link"
 import NoResult from "@/components/shared/NoResult"
-import QuestionCards from "@/components/cards/QuestionCards"
+import QuestionCard from "@/components/cards/QuestionCard"
+import { getQuestions } from "@/lib/actions/question.action"
 
-const questions = [
-  {
-    _id: "1",
-    title: "How to use Next.js?",
-    tags: [
-      { _id: "1", name: "NEXTJS" },
-      { _id: "2", name: "REACT" },
-    ],
-    author: {
-      _id: "1", // Assuming an ID for the author
-      name: "John Doe",
-      picture: "url/to/picture.jpg", // Assuming a URL to the author's picture
-    },
-    upvotes: 10,
-    views: 500651,
-    answers: [],
-    createdAt: new Date("2023-09-01T00:00:00.000Z"),
-  },
-  {
-    _id: "2",
-    title: "How to center a div in CSS?. Really need answer right now!",
-    tags: [
-      { _id: "1", name: "HTML" },
-      { _id: "2", name: "CSS" },
-    ],
-    author: {
-      _id: "1", // Assuming an ID for the author
-      name: "John Doe",
-      picture: "url/to/picture.jpg", // Assuming a URL to the author's picture
-    },
-    upvotes: 10,
-    views: 100,
-    answers: [],
-    createdAt: new Date("2021-09-01T00:00:00.000Z"),
-  },
-]
-
-export default function Home() {
+export default async function Home() {
+  const result = await getQuestions({})
   return (
     <>
       <div className="flex justify-between">
@@ -67,9 +32,9 @@ export default function Home() {
       <HomeFilter />
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions.map((question) => (
-            <QuestionCards
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => (
+            <QuestionCard
               key={question._id}
               id={question._id}
               title={question.title}
