@@ -20,6 +20,7 @@ import { Badge } from "../ui/badge"
 import Image from "next/image"
 import { createQuestion } from "@/lib/actions/question.action"
 import { usePathname, useRouter } from "next/navigation"
+import { useTheme } from "@/context/ThemeProvider"
 
 interface Props {
   mongoUserId: string
@@ -28,6 +29,7 @@ interface Props {
 const type: any = "create"
 
 export default function QuestionForm({ mongoUserId }: Props) {
+  const { mode } = useTheme()
   const editorRef = useRef(null)
   const form = useForm<QuestionSchemaType>({
     resolver: zodResolver(questionSchema),
@@ -170,8 +172,11 @@ export default function QuestionForm({ mongoUserId }: Props) {
                       "codesample bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify |  bullist numlist",
                     content_style: "body { font-family:Inter;font-size:16px }",
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "",
                   }}
                   onChange={() => {}}
+                  // {...field}
                   onEditorChange={(content) => field.onChange(content)}
                 />
               </FormControl>

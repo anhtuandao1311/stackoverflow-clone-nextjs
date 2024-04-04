@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { ClerkProvider } from "@clerk/nextjs"
 import "./globals.css"
+import "../styles/prism.css"
 import { Metadata } from "next"
 import { Inter, Space_Grotesk } from "next/font/google"
 import { ThemeProvider } from "@/context/ThemeProvider"

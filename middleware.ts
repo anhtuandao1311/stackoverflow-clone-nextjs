@@ -8,11 +8,11 @@ export default authMiddleware({
     "/question/:id",
     "/tags",
     "/tags/:id",
-    "profile/:id",
-    "community",
-    "jobs",
+    "/profile/:id",
+    "/community",
+    "/jobs",
   ],
-  ignoredRoutes: ["/api/webhooks(.*)"],
+  ignoredRoutes: ["/api/webhooks"],
 })
 
 export const config = {

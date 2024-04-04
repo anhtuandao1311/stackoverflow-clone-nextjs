@@ -10,7 +10,7 @@ interface Props {
   title: string
   tags: ITag[]
   author: IUser
-  upvotes: number
+  upvotes: Object[]
   views: number
   answers: Object[]
   createdAt: Date
@@ -33,7 +33,7 @@ export default function QuestionCard({
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
             {getTimeStamp(createdAt)}
           </span>
-          <Link href={`questions/${id}`}>
+          <Link href={`question/${id}`}>
             <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1">
               {title}
             </h3>
@@ -52,31 +52,31 @@ export default function QuestionCard({
       </div>
       <div className="mt-6 flex flex-wrap justify-between gap-3">
         <Metric
-          imgUrl="assets/icons/avatr.svg"
+          imgUrl={author.picture}
           alt="User"
           value={author.name}
           title={` - asked ${getTimeStamp(createdAt)}`}
           textStyles="body-medium text-dark400_light700"
-          href={`/profile/${author._id}`}
+          href={`/profile/${author.clerkId}`}
           isAuthor
         />
         <div className="flex justify-between gap-3">
           <Metric
-            imgUrl="assets/icons/like.svg"
+            imgUrl="/assets/icons/like.svg"
             alt="Upvotes"
-            value={formatNumber(upvotes)}
+            value={formatNumber(upvotes.length)}
             title="Votes"
             textStyles="small-medium text-dark400_light800"
           />
           <Metric
-            imgUrl="assets/icons/message.svg"
+            imgUrl="/assets/icons/message.svg"
             alt="Answers"
             value={formatNumber(answers.length)}
             title="Answers"
             textStyles="small-medium text-dark400_light800"
           />
           <Metric
-            imgUrl="assets/icons/eye.svg"
+            imgUrl="/assets/icons/eye.svg"
             alt="Views"
             value={formatNumber(views)}
             title="Views"

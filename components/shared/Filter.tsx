@@ -29,7 +29,7 @@ export default function Filter({
         <SelectTrigger
           className={`${otherClasses} body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-3`}
         >
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder="Select a Filter" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>

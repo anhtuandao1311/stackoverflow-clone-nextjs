@@ -25,8 +25,8 @@ export default function Metric({
       <Image
         src={imgUrl}
         alt={alt}
-        width={16}
-        height={16}
+        width={18}
+        height={18}
         className={`${href ? "rounded-full" : ""}`}
       />
       <p className={`${textStyles} flex items-center gap-1`}>
