@@ -9,7 +9,7 @@ export interface CreateAnswerParams {
 
 export interface GetAnswersParams {
   questionId: string
-  sortBy?: string
+  filter?: string
   page?: number
   pageSize?: number
 }
@@ -28,7 +28,7 @@ export interface DeleteAnswerParams {
 }
 
 export interface SearchParams {
-  query?: string | null
+  global?: string | null
   type?: string | null
 }
 

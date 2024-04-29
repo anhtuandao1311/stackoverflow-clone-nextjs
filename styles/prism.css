@@ -121,8 +121,10 @@ pre[class*="language-"] {
 
 .prism-text-light p {
   color: #151821;
+  word-break: break-word;
 }
 
 .prism-text-dark p {
   color: white;
+  word-break: break-word;
 }

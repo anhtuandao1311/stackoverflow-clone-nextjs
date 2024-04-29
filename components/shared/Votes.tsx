@@ -35,14 +35,14 @@ export default function Votes({
 }: Props) {
   const pathname = usePathname()
 
-  // useEffect(() => {
-  //   if (type === "question") {
-  //     viewQuestion({
-  //       questionId: JSON.parse(itemId),
-  //       userId: userId ? JSON.parse(userId) : undefined,
-  //     })
-  //   }
-  // }, [itemId, userId, type])
+  useEffect(() => {
+    if (type === "question") {
+      viewQuestion({
+        questionId: JSON.parse(itemId),
+        userId: userId ? JSON.parse(userId) : undefined,
+      })
+    }
+  }, [itemId, userId, type])
 
   const handleVote = async (voteType: string) => {
     if (!userId) return

@@ -4,6 +4,8 @@ import Metric from "../shared/Metric"
 import { formatNumber, getTimeStamp } from "@/lib/utils"
 import { ITag } from "@/database/tag.model"
 import { IUser } from "@/database/user.model"
+import EditDeleteAction from "@/components/shared/EditDeleteAction"
+import { SignedIn } from "@clerk/nextjs"
 
 interface Props {
   id: string
@@ -14,6 +16,7 @@ interface Props {
   views: number
   answers: Object[]
   createdAt: Date
+  clerkId?: string | null
 }
 
 export default function QuestionCard({
@@ -25,9 +28,11 @@ export default function QuestionCard({
   views,
   answers,
   createdAt,
+  clerkId,
 }: Props) {
+  const showActionButtons = clerkId && clerkId === author.clerkId
   return (
-    <div className="card-wrapper p-9 sm:px-11 rounded-sm">
+    <div className="card-wrapper p-9 sm:px-11 rounded-sm shadow">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
@@ -39,8 +44,13 @@ export default function QuestionCard({
             </h3>
           </Link>
         </div>
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction type="Question" itemId={JSON.stringify(id)} />
+          )}
+        </SignedIn>
       </div>
-      <div className="mt-3.5 flex flex-wrap gap-2">
+      <div className="mt-3.5 flex flex-wrap gap-2 mb-10">
         {tags.map((tag) => (
           <RenderTag
             key={tag._id}

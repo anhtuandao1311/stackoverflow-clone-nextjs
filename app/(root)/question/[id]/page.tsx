@@ -8,14 +8,15 @@ import { IUser } from "@/database/user.model"
 import { getQuestionById } from "@/lib/actions/question.action"
 import { getUserById } from "@/lib/actions/user.action"
 import { formatNumber, getTimeStamp } from "@/lib/utils"
+import { URLProps } from "@/types"
 import { auth } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 
-export default async function page({ params, searchParams }) {
+export default async function page({ params, searchParams }: URLProps) {
   const question = await getQuestionById({ questionId: params.id })
   const { userId } = auth()
-  let mongoUser: IUser | null
+  let mongoUser: IUser | null = null
   if (userId) {
     mongoUser = await getUserById({ userId: userId })
   }
@@ -43,12 +44,12 @@ export default async function page({ params, searchParams }) {
             <Votes
               type="question"
               itemId={JSON.stringify(question._id)}
-              userId={JSON.stringify(mongoUser._id)}
+              userId={JSON.stringify(mongoUser?._id)}
               upvotes={question.upvotes.length}
-              hasUpvoted={question.upvotes.includes(mongoUser._id)}
+              hasUpvoted={question.upvotes.includes(mongoUser?._id)}
               downvotes={question.downvotes.length}
-              hasDownvoted={question.downvotes.includes(mongoUser._id)}
-              hasSaved={mongoUser.saved.includes(question._id)}
+              hasDownvoted={question.downvotes.includes(mongoUser?._id)}
+              hasSaved={mongoUser?.saved.includes(question._id)}
             />
           </div>
         </div>
@@ -80,7 +81,8 @@ export default async function page({ params, searchParams }) {
         </div>
 
         <ParsedHTML data={question.content} />
-        <div className="mt-8 flex gap-3 w-full">
+        <div className="mt-16 flex gap-3 w-full mb-6">
+          <p className="text-dark200_light900 h3-semibold mt-0.5">Tags:</p>
           {question.tags.map((tag: { _id: string; name: string }) => (
             <RenderTag
               key={tag._id}
@@ -93,14 +95,16 @@ export default async function page({ params, searchParams }) {
 
         <AllAnswers
           questionId={JSON.stringify(question._id)}
-          userId={JSON.stringify(mongoUser._id)}
+          userId={JSON.stringify(mongoUser?._id || {})}
           totalAnswers={question.answers.length}
+          filter={searchParams?.filter}
+          page={Number(searchParams?.page)}
         />
 
         <AnswerForm
           question={question.content}
           questionId={JSON.stringify(question._id)}
-          authorId={JSON.stringify(mongoUser._id)}
+          authorId={JSON.stringify(mongoUser?._id)}
         />
       </div>
     </>

@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx"
+import queryString from "query-string"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -38,4 +39,70 @@ export function formatNumber(num: number) {
   } else {
     return num.toString()
   }
+}
+
+export function formatJoinedDate(date: Date): string {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
+  const month = monthNames[date.getMonth()]
+  const year = date.getFullYear()
+
+  return `Joined ${month} ${year}`
+}
+
+export function formUrlQuery({
+  path,
+  params,
+  key,
+  value,
+}: {
+  path: string
+  params: any
+  key: string
+  value: string | null
+}) {
+  const currentUrl = queryString.parse(params)
+  currentUrl[key] = value
+  return queryString.stringifyUrl(
+    {
+      url: path,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  )
+}
+
+export function removeKeysFromUrlQuery({
+  path,
+  params,
+  keys,
+}: {
+  path: string
+  params: any
+  keys: string[]
+}) {
+  const currentUrl = queryString.parse(params)
+  for (const key of keys) {
+    delete currentUrl[key]
+  }
+  return queryString.stringifyUrl(
+    {
+      url: path,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  )
 }

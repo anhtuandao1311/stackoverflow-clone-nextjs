@@ -18,45 +18,57 @@ import React, { useRef, useState } from "react"
 import { Editor } from "@tinymce/tinymce-react"
 import { Badge } from "../ui/badge"
 import Image from "next/image"
-import { createQuestion } from "@/lib/actions/question.action"
+import { createQuestion, editQuestion } from "@/lib/actions/question.action"
 import { usePathname, useRouter } from "next/navigation"
 import { useTheme } from "@/context/ThemeProvider"
 
 interface Props {
   mongoUserId: string
+  type: "create" | "edit"
+  question?: string
 }
 
-const type: any = "create"
-
-export default function QuestionForm({ mongoUserId }: Props) {
+export default function QuestionForm({ mongoUserId, type, question }: Props) {
   const { mode } = useTheme()
   const editorRef = useRef(null)
+  const parsedQuestion = question && JSON.parse(question || "")
+  const groupedTags = parsedQuestion?.tags.map((tag: any) => tag.name)
   const form = useForm<QuestionSchemaType>({
     resolver: zodResolver(questionSchema),
     defaultValues: {
-      title: "",
-      explanation: "",
-      tags: [],
+      title: parsedQuestion?.title || "",
+      explanation: parsedQuestion?.content || "",
+      tags: groupedTags || [],
     },
   })
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const router = useRouter()
   const pathname = usePathname()
-  console.log(pathname)
 
   async function onSubmit(values: QuestionSchemaType) {
     setIsSubmitting(true)
     try {
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(mongoUserId), // just to be sure
-        path: pathname,
-      })
+      if (type === "edit") {
+        await editQuestion({
+          title: values.title,
+          content: values.explanation,
+          questionId: parsedQuestion._id,
+          path: pathname,
+        })
 
-      // navigate to homepage
-      router.push("/")
+        router.push(`/question/${parsedQuestion._id}`)
+      } else {
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(mongoUserId), // just to be sure
+          path: pathname,
+        })
+
+        // navigate to homepage
+        router.push("/")
+      }
     } catch (err) {
       console.log(err)
     } finally {
@@ -146,7 +158,7 @@ export default function QuestionForm({ mongoUserId }: Props) {
                     // @ts-ignore
                     (editorRef.current = editor)
                   }
-                  initialValue=""
+                  initialValue={parsedQuestion?.content || ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -206,6 +218,7 @@ export default function QuestionForm({ mongoUserId }: Props) {
                   <Input
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                     placeholder="Add tags..."
+                    disabled={type === "edit"}
                     onKeyDown={(e) => handleInputKeyDown(e, field)}
                   />
                   {field.value.length > 0 && (
@@ -214,7 +227,11 @@ export default function QuestionForm({ mongoUserId }: Props) {
                         <Badge
                           key={tag}
                           className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 cursor-pointer uppercase"
-                          onClick={() => handleRemoveTag(tag, field)}
+                          onClick={
+                            type === "create"
+                              ? () => handleRemoveTag(tag, field)
+                              : () => {}
+                          }
                         >
                           {tag}
                           <Image

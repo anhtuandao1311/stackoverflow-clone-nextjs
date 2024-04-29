@@ -1,12 +1,13 @@
 import Image from "next/image"
 import { Button } from "../ui/button"
 import Link from "next/link"
+import { link } from "fs"
 
 interface Props {
   title: string
   description: string
-  linkTo: string
-  linkDescription: string
+  linkTo?: string
+  linkDescription?: string
 }
 
 export default function NoResult({
@@ -37,11 +38,13 @@ export default function NoResult({
       <p className="body-regular max-w-[500px] text-dark500_light700 text-center">
         {description}
       </p>
-      <Link href={linkTo}>
-        <Button className="primary-gradient min-h-[46px] px-4 py-3 text-light-900 mb-16">
-          {linkDescription}
-        </Button>
-      </Link>
+      {linkTo && linkDescription && (
+        <Link href={linkTo}>
+          <Button className="primary-gradient min-h-[46px] px-4 py-3 text-light-900 mb-16">
+            {linkDescription}
+          </Button>
+        </Link>
+      )}
     </div>
   )
 }

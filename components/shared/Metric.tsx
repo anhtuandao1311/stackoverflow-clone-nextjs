@@ -29,11 +29,11 @@ export default function Metric({
         height={18}
         className={`${href ? "rounded-full" : ""}`}
       />
-      <p className={`${textStyles} flex items-center gap-1`}>
+      <p className={`${textStyles} flex items-center gap-1 mt-[0.5px]`}>
         {value}
 
         <span
-          className={`small-regular line-clamp-1 ${isAuthor ? "max-sm:hidden" : ""}`}
+          className={`small-regular line-clamp-1 mt-[0.5px] ${isAuthor ? "max-sm:hidden" : ""}`}
         >
           {title}
         </span>

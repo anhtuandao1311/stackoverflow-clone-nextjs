@@ -7,9 +7,16 @@ import Link from "next/link"
 import NoResult from "@/components/shared/NoResult"
 import QuestionCard from "@/components/cards/QuestionCard"
 import { getQuestions } from "@/lib/actions/question.action"
+import { SearchParamsProps } from "@/types"
+import Pagination from "@/components/shared/Pagination"
 
-export default async function Home() {
-  const result = await getQuestions({})
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
+    pageSize: 3,
+  })
   return (
     <>
       <div className="flex justify-between">
@@ -56,6 +63,12 @@ export default async function Home() {
             linkDescription="Ask Question"
           />
         )}
+      </div>
+      <div className="mt-10">
+        <Pagination
+          numberOfPages={result.numberOfPages}
+          pageNumber={searchParams?.page ? +searchParams?.page : 1}
+        />
       </div>
     </>
   )
