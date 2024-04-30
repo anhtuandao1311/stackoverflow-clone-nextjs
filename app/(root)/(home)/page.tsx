@@ -21,7 +21,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     <>
       <div className="flex justify-between">
         <h1 className="h1-bold text-dark100_light900">All Questions</h1>
-        <Link href="ask-question">
+        <Link href="/ask-question">
           <Button className="primary-gradient min-h-[46px] px-4 py-3 text-light-900">
             Ask Question
           </Button>
@@ -64,12 +64,14 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
-      <div className="mt-10">
-        <Pagination
-          numberOfPages={result.numberOfPages}
-          pageNumber={searchParams?.page ? +searchParams?.page : 1}
-        />
-      </div>
+      {result.questions.length > 0 && (
+        <div className="mt-10">
+          <Pagination
+            numberOfPages={result.numberOfPages}
+            pageNumber={searchParams?.page ? +searchParams?.page : 1}
+          />
+        </div>
+      )}
     </>
   )
 }

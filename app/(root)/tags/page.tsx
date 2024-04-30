@@ -40,12 +40,14 @@ export default async function page({ searchParams }: SearchParamsProps) {
           </div>
         )}
       </section>
-      <div className="mt-10">
-        <Pagination
-          numberOfPages={result.numberOfPages}
-          pageNumber={searchParams?.page ? +searchParams?.page : 1}
-        />
-      </div>
+      {result.tags.length > 0 && (
+        <div className="mt-10">
+          <Pagination
+            numberOfPages={result.numberOfPages}
+            pageNumber={searchParams?.page ? +searchParams?.page : 1}
+          />
+        </div>
+      )}
     </>
   )
 }

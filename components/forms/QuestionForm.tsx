@@ -21,6 +21,7 @@ import Image from "next/image"
 import { createQuestion, editQuestion } from "@/lib/actions/question.action"
 import { usePathname, useRouter } from "next/navigation"
 import { useTheme } from "@/context/ThemeProvider"
+import { toast } from "sonner"
 
 interface Props {
   mongoUserId: string
@@ -55,6 +56,7 @@ export default function QuestionForm({ mongoUserId, type, question }: Props) {
           questionId: parsedQuestion._id,
           path: pathname,
         })
+        toast.success("Question edited successfully")
 
         router.push(`/question/${parsedQuestion._id}`)
       } else {
@@ -65,6 +67,7 @@ export default function QuestionForm({ mongoUserId, type, question }: Props) {
           author: JSON.parse(mongoUserId), // just to be sure
           path: pathname,
         })
+        toast.success("Question created successfully")
 
         // navigate to homepage
         router.push("/")

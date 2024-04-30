@@ -21,6 +21,7 @@ import { Editor } from "@tinymce/tinymce-react"
 import { Badge } from "lucide-react"
 import { type } from "os"
 import { updateUser } from "@/lib/actions/user.action"
+import { toast } from "sonner"
 
 interface Props {
   clerkId: string
@@ -48,6 +49,7 @@ export default function ProfileForm({ clerkId, user }: Props) {
     setIsSubmitting(true)
     try {
       await updateUser({ clerkId, updateData: values, path: pathname })
+      toast.success("Profile updated successfully")
       router.push(`/profile/${clerkId}`)
     } catch (error) {
       console.error(error)

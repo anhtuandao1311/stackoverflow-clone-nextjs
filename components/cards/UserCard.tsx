@@ -13,7 +13,7 @@ export default async function UserCard({ user }: Props) {
   const interactedTags = await getTopInteractedTags({ userId: user._id })
   return (
     <Link
-      href={`profile/${user.clerkId}`}
+      href={`/profile/${user.clerkId}`}
       className="shadow-light100_darknone w-full max-xs:min-w-full "
     >
       <article className="background-light900_dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-8">

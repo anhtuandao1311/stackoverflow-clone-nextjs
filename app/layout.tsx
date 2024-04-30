@@ -6,6 +6,7 @@ import { Metadata } from "next"
 import { Inter, Space_Grotesk } from "next/font/google"
 import { ThemeProvider } from "@/context/ThemeProvider"
 import React from "react"
+import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,9 +23,23 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "HelpMeDevs",
   description:
-    "A website built for developers to help each other out using Next.js 14",
+    "A website built for developers to help each other out using Next.js 14 by Dao Anh Tuan",
   icons: {
     icon: "/assets/images/site-logo.svg",
+  },
+  openGraph: {
+    type: "website",
+    title: "HelpMeDevs",
+    description:
+      "A website built for developers to help each other out using Next.js 14 by Dao Anh Tuan",
+    images: [
+      {
+        url: "/assets/images/helpmedevs.jpg",
+        width: 1200,
+        height: 628,
+        alt: "HelpMeDevs",
+      },
+    ],
   },
 }
 
@@ -45,6 +60,7 @@ export default function RootLayout({
           }}
         >
           <ThemeProvider>{children}</ThemeProvider>
+          <Toaster />
         </ClerkProvider>
       </body>
     </html>

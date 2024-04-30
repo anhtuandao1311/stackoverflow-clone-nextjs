@@ -15,9 +15,6 @@ export default function LeftSideBar() {
       <div className="flex flex-col gap-1">
         {sidebarLinks.map((link) => {
           const isActive = pathname === link.route
-          if (link.route === "/profile") {
-            if (userId) link.route = `/profile/${userId}`
-          }
           return (
             <div key={link.route}>
               <Link

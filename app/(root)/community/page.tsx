@@ -6,14 +6,20 @@ import LocalSearchBar from "@/components/shared/search/LocalSearchBar"
 import { UserFilters } from "@/constants/filters"
 import { getAllUsers } from "@/lib/actions/user.action"
 import { SearchParamsProps } from "@/types"
+import { auth } from "@clerk/nextjs"
 
 export default async function page({ searchParams }: SearchParamsProps) {
+  const { userId: clerkId } = auth()
   const result = await getAllUsers({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
     pageSize: 4,
   })
+  if (clerkId) {
+    result.users = result.users.filter((user) => user.clerkId !== clerkId)
+  }
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>
@@ -41,12 +47,14 @@ export default async function page({ searchParams }: SearchParamsProps) {
           </div>
         )}
       </section>
-      <div className="mt-10">
-        <Pagination
-          numberOfPages={result.numberOfPages}
-          pageNumber={searchParams?.page ? +searchParams?.page : 1}
-        />
-      </div>
+      {result.users.length > 0 && (
+        <div className="mt-10">
+          <Pagination
+            numberOfPages={result.numberOfPages}
+            pageNumber={searchParams?.page ? +searchParams?.page : 1}
+          />
+        </div>
+      )}
     </>
   )
 }

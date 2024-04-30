@@ -3,7 +3,6 @@ import AllAnswers from "@/components/shared/AllAnswers"
 import Metric from "@/components/shared/Metric"
 import ParsedHTML from "@/components/shared/ParsedHTML"
 import RenderTag from "@/components/shared/RenderTag"
-import Votes from "@/components/shared/Votes"
 import { IUser } from "@/database/user.model"
 import { getQuestionById } from "@/lib/actions/question.action"
 import { getUserById } from "@/lib/actions/user.action"
@@ -12,6 +11,7 @@ import { URLProps } from "@/types"
 import { auth } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
+import QuestionVotes from "@/components/shared/QuestionVotes"
 
 export default async function page({ params, searchParams }: URLProps) {
   const question = await getQuestionById({ questionId: params.id })
@@ -41,8 +41,7 @@ export default async function page({ params, searchParams }: URLProps) {
             </p>
           </Link>
           <div className="flex justify-end">
-            <Votes
-              type="question"
+            <QuestionVotes
               itemId={JSON.stringify(question._id)}
               userId={JSON.stringify(mongoUser?._id)}
               upvotes={question.upvotes.length}
@@ -95,7 +94,7 @@ export default async function page({ params, searchParams }: URLProps) {
 
         <AllAnswers
           questionId={JSON.stringify(question._id)}
-          userId={JSON.stringify(mongoUser?._id || {})}
+          userId={mongoUser?._id}
           totalAnswers={question.answers.length}
           filter={searchParams?.filter}
           page={Number(searchParams?.page)}

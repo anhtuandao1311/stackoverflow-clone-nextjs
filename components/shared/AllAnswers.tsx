@@ -1,6 +1,7 @@
+import AnswerVotes from "@/components/shared/AnswerVotes"
 import Filter from "@/components/shared/Filter"
 import ParsedHTML from "@/components/shared/ParsedHTML"
-import Votes from "@/components/shared/Votes"
+import Votes from "@/components/shared/QuestionVotes"
 import { AnswerFilters } from "@/constants/filters"
 import { getAnswers } from "@/lib/actions/answer.action"
 import { getTimeStamp } from "@/lib/utils"
@@ -9,7 +10,7 @@ import Link from "next/link"
 
 interface Props {
   questionId: string
-  userId: string
+  userId: any
   totalAnswers: number
   page?: number
   filter?: string
@@ -60,14 +61,13 @@ export default async function AllAnswers({
                 </div>
               </Link>
               <div className="flex justify-end">
-                <Votes
-                  type="answer"
+                <AnswerVotes
                   itemId={JSON.stringify(answer._id)}
-                  userId={userId}
+                  userId={JSON.stringify(userId)}
                   upvotes={answer.upvotes.length}
-                  hasUpvoted={answer.upvotes.includes(JSON.parse(userId))}
+                  hasUpvoted={answer.upvotes.includes(userId)}
                   downvotes={answer.downvotes.length}
-                  hasDownvoted={answer.downvotes.includes(JSON.parse(userId))}
+                  hasDownvoted={answer.downvotes.includes(userId)}
                 />
               </div>
             </div>

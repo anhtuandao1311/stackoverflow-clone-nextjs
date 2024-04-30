@@ -38,19 +38,21 @@ export default async function page({ params, searchParams }: URLProps) {
           ))
         ) : (
           <NoResult
-            title="No Questions Found"
+            title="No Questions Found In This Tag"
             description="📚 Maybe try rephrasing your search or ask a new question?"
             linkTo="/ask-question"
             linkDescription="Ask a question"
           />
         )}
       </div>
-      <div className="mt-10">
-        <Pagination
-          numberOfPages={result.numberOfPages}
-          pageNumber={searchParams?.page ? +searchParams?.page : 1}
-        />
-      </div>
+      {result.questions.length > 0 && (
+        <div className="mt-10">
+          <Pagination
+            numberOfPages={result.numberOfPages}
+            pageNumber={searchParams?.page ? +searchParams?.page : 1}
+          />
+        </div>
+      )}
     </>
   )
 }

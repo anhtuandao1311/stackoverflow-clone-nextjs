@@ -4,6 +4,11 @@ import Image from "next/image"
 interface StatsProps {
   totalQuestions: number
   totalAnswers: number
+  badgeCounts: {
+    GOLD: number
+    SILVER: number
+    BRONZE: number
+  }
 }
 
 interface StatsCardProps {
@@ -24,7 +29,11 @@ function StatsCard({ imgUrl, value, title }: StatsCardProps) {
   )
 }
 
-export default function Stats({ totalQuestions, totalAnswers }: StatsProps) {
+export default function Stats({
+  totalQuestions,
+  totalAnswers,
+  badgeCounts,
+}: StatsProps) {
   return (
     <div className="mt-10">
       <h4 className="h3-semibold text-dark200_light900">Stats</h4>
@@ -45,17 +54,17 @@ export default function Stats({ totalQuestions, totalAnswers }: StatsProps) {
         </div>
         <StatsCard
           imgUrl="/assets/icons/gold-medal.svg"
-          value={0}
+          value={badgeCounts.GOLD}
           title="Gold Badges"
         />
         <StatsCard
           imgUrl="/assets/icons/silver-medal.svg"
-          value={0}
+          value={badgeCounts.SILVER}
           title="Silver Badges"
         />
         <StatsCard
           imgUrl="/assets/icons/bronze-medal.svg"
-          value={0}
+          value={badgeCounts.BRONZE}
           title="Bronze Badges"
         />
       </div>

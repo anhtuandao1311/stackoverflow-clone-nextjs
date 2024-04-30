@@ -61,7 +61,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 
     const totalQuestions = await Question.countDocuments(query)
     const numberOfPages = Math.ceil(totalQuestions / pageSize)
-    // console.log(questions)
+    revalidatePath("/")
     return { questions, numberOfPages }
   } catch (err) {
     console.log(err)

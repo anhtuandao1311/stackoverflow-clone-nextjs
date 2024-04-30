@@ -14,10 +14,10 @@ import { createAnswer } from "@/lib/actions/answer.action"
 import { AnswerSchemaType, answerSchema } from "@/lib/validations"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Editor } from "@tinymce/tinymce-react"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useRef, useState } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 interface Props {
   question: string
@@ -37,6 +37,7 @@ export default function AnswerForm({ question, questionId, authorId }: Props) {
   })
   const pathname = usePathname()
   // const router = useRouter()
+  // const [isSubmittingAI, setIsSubmittingAI] = useState(false)
 
   const handleCreateAnswer = async (data: AnswerSchemaType) => {
     setIsSubmitting(true)
@@ -48,7 +49,7 @@ export default function AnswerForm({ question, questionId, authorId }: Props) {
         path: pathname,
       })
 
-      // router.refresh()
+      toast.success("Answer submitted successfully")
 
       form.reset()
       if (editorRef.current) {
@@ -61,6 +62,36 @@ export default function AnswerForm({ question, questionId, authorId }: Props) {
     }
   }
 
+  // const handleGenerateAIAnswer = async () => {
+  //   if (!authorId) return
+
+  //   setIsSubmittingAI(true)
+
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+  //       {
+  //         method: "POST",
+  //         body: JSON.stringify({ question }),
+  //       }
+  //     )
+
+  //     const answer = await response.json()
+  //     console.log(answer)
+  //     const formattedAnswer = answer.reply.replace(/\n/g, "<br />")
+
+  //     if (editorRef.current) {
+  //       editorRef.current.setContent(formattedAnswer)
+  //     }
+
+  //     // toats
+  //   } catch (err) {
+  //     console.log(err)
+  //   } finally {
+  //     setIsSubmittingAI(false)
+  //   }
+  // }
+
   return (
     <div className="w-full mt-10">
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
@@ -68,7 +99,11 @@ export default function AnswerForm({ question, questionId, authorId }: Props) {
           Write your answer here
         </h4>
 
-        <Button className="btn light-border-2 gap-1.5 rounded px-4 py-2.5 text-primary-500 shadow-none">
+        {/* <Button
+          className="btn light-border-2 gap-1.5 rounded px-4 py-2.5 text-primary-500 shadow-none"
+          onClick={() => handleGenerateAIAnswer()}
+          disabled={isSubmittingAI}
+        >
           <Image
             src="/assets/icons/stars.svg"
             alt="star"
@@ -76,8 +111,8 @@ export default function AnswerForm({ question, questionId, authorId }: Props) {
             height={12}
             className="object-contain"
           ></Image>
-          Generate an AI answer
-        </Button>
+          {isSubmittingAI ? "Generating..." : "Generate AI answer"}
+        </Button> */}
       </div>
       <Form {...form}>
         <form
@@ -148,6 +183,10 @@ export default function AnswerForm({ question, questionId, authorId }: Props) {
             <Button
               className="primary-gradient text-white"
               disabled={isSubmitting}
+              onClick={() => {
+                if (!authorId)
+                  return toast.error("You need to be logged in to answer")
+              }}
             >
               {isSubmitting ? "Submitting..." : "Submit"}
             </Button>

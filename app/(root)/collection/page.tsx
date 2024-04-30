@@ -57,12 +57,14 @@ export default async function page({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
-      <div className="mt-10">
-        <Pagination
-          numberOfPages={result.numberOfPages}
-          pageNumber={searchParams?.page ? +searchParams?.page : 1}
-        />
-      </div>
+      {result.questions.length > 0 && (
+        <div className="mt-10">
+          <Pagination
+            numberOfPages={result.numberOfPages}
+            pageNumber={searchParams?.page ? +searchParams?.page : 1}
+          />
+        </div>
+      )}
     </>
   )
 }
