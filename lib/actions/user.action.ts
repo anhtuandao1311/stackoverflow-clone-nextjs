@@ -13,7 +13,7 @@ import {
   UpdateUserParams,
 } from "@/lib/actions/shared"
 import { revalidatePath } from "next/cache"
-import console, { count } from "console"
+import console from "console"
 import Question, { IQuestion } from "@/database/question.model"
 import { FilterQuery } from "mongoose"
 import Tag from "@/database/tag.model"
@@ -27,7 +27,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     const { page = 1, pageSize = 10, filter, searchQuery } = params
     const skipAmount = (page - 1) * pageSize
-    let query: FilterQuery<typeof User> = {}
+    const query: FilterQuery<typeof User> = {}
     if (searchQuery) {
       query.$or = [
         { name: { $regex: new RegExp(searchQuery, "i") } },
@@ -298,7 +298,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
 export async function getUserQuestions(params: GetUserStatsParams) {
   try {
     await connectToDatabase()
-    const { userId, page = 1, pageSize = 10 } = params
+    const { userId } = params
     const user = await User.findById<IUser>(userId)
     if (!user) throw new Error("User not found")
 
@@ -319,7 +319,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
 export async function getUserAnswers(params: GetUserStatsParams) {
   try {
     await connectToDatabase()
-    const { userId, page = 1, pageSize = 10 } = params
+    const { userId } = params
     const user = await User.findById<IUser>(userId)
     if (!user) throw new Error("User not found")
 

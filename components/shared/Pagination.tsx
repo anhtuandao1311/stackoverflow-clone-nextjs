@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { formUrlQuery } from "@/lib/utils"
 import Link from "next/link"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 
 interface Props {
   pageNumber: number
@@ -14,7 +14,6 @@ const RANGE = 2
 
 export default function Pagination({ numberOfPages, pageNumber }: Props) {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const pathname = usePathname()
   const page = pageNumber
   const newPrevUrl = formUrlQuery({

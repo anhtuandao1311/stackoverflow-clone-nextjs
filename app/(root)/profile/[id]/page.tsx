@@ -10,7 +10,6 @@ import ProfileLink from "@/components/shared/ProfileLink"
 import Stats from "@/components/shared/Stats"
 import QuestionTab from "@/components/shared/QuestionTab"
 import AnswerTab from "@/components/shared/AnswerTab"
-import { redirect } from "next/navigation"
 
 export default async function page({ params, searchParams }: URLProps) {
   const { userId: clerkId } = auth()

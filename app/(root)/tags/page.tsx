@@ -3,7 +3,7 @@ import Filter from "@/components/shared/Filter"
 import NoResult from "@/components/shared/NoResult"
 import Pagination from "@/components/shared/Pagination"
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar"
-import { TagFilters, UserFilters } from "@/constants/filters"
+import { TagFilters } from "@/constants/filters"
 import { getAllTags } from "@/lib/actions/tag.action"
 import { SearchParamsProps } from "@/types"
 

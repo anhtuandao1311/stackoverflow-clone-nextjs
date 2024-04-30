@@ -67,8 +67,6 @@ export default function QuestionVotes({
       } catch (err) {
         console.log(err)
       }
-
-      return
     }
   }
 

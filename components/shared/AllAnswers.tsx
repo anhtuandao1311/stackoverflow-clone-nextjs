@@ -1,7 +1,6 @@
 import AnswerVotes from "@/components/shared/AnswerVotes"
 import Filter from "@/components/shared/Filter"
 import ParsedHTML from "@/components/shared/ParsedHTML"
-import Votes from "@/components/shared/QuestionVotes"
 import { AnswerFilters } from "@/constants/filters"
 import { getAnswers } from "@/lib/actions/answer.action"
 import { getTimeStamp } from "@/lib/utils"

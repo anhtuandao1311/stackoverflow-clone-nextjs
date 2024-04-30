@@ -2,14 +2,12 @@
 
 import { ProfileSchemaType, profileSchema } from "@/lib/validations"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { set } from "mongoose"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,9 +15,6 @@ import {
 } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Editor } from "@tinymce/tinymce-react"
-import { Badge } from "lucide-react"
-import { type } from "os"
 import { updateUser } from "@/lib/actions/user.action"
 import { toast } from "sonner"
 

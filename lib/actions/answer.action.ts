@@ -3,7 +3,6 @@
 import Answer from "@/database/answer.model"
 import Interaction from "@/database/interaction.model"
 import Question from "@/database/question.model"
-import Tag from "@/database/tag.model"
 import User from "@/database/user.model"
 import {
   AnswerVoteParams,
@@ -46,7 +45,7 @@ export async function createAnswer(params: CreateAnswerParams) {
 export async function getAnswers(params: GetAnswersParams) {
   try {
     await connectToDatabase()
-    const { questionId, page = 1, filter } = params
+    const { questionId, filter } = params
 
     let sortOptions: any = { createdAt: -1 }
     switch (filter) {

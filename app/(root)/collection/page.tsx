@@ -1,6 +1,6 @@
 import Filter from "@/components/shared/Filter"
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar"
-import { HomePageFilters, QuestionFilters } from "@/constants/filters"
+import { QuestionFilters } from "@/constants/filters"
 import NoResult from "@/components/shared/NoResult"
 import QuestionCard from "@/components/cards/QuestionCard"
 import { getSavedQuestions } from "@/lib/actions/user.action"

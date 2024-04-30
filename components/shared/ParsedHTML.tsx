@@ -26,7 +26,7 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.js"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
 import parse from "html-react-parser"
-import { use, useEffect } from "react"
+import { useEffect } from "react"
 import { useTheme } from "@/context/ThemeProvider"
 
 interface Props {

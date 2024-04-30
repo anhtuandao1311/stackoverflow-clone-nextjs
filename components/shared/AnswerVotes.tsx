@@ -54,7 +54,6 @@ export default function AnswerVotes({
       } catch (err) {
         console.log(err)
       }
-      return
     }
   }
   return (

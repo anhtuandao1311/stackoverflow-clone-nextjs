@@ -14,7 +14,7 @@ import { FilterQuery } from "mongoose"
 export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     await connectToDatabase()
-    const { userId, limit = 3 } = params
+    const { userId } = params
     const user = await User.findById(userId)
     if (!user) {
       throw new Error("User not found")
@@ -37,7 +37,7 @@ export async function getAllTags(params: GetAllTagsParams) {
     await connectToDatabase()
     const { page = 1, pageSize = 6, filter, searchQuery } = params
     const skipAmount = (page - 1) * pageSize
-    let query: FilterQuery<typeof Tag> = searchQuery
+    const query: FilterQuery<typeof Tag> = searchQuery
       ? { name: { $regex: searchQuery, $options: "i" } }
       : {}
 
