@@ -27,22 +27,14 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
 import parse from "html-react-parser"
 import { useEffect } from "react"
-import { useTheme } from "@/context/ThemeProvider"
 
 interface Props {
   data: any
 }
 
 export default function ParsedHTML({ data }: Props) {
-  const { mode } = useTheme()
   useEffect(() => {
     Prism.highlightAll()
   }, [])
-  return (
-    <div
-      className={`w-full ${mode === "light" ? "prism-text-light" : "prism-text-dark"}`}
-    >
-      {parse(data)}
-    </div>
-  )
+  return <div className="w-full markdown">{parse(data)}</div>
 }

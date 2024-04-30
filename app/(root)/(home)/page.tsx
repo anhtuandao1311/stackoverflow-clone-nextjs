@@ -17,6 +17,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     page: searchParams.page ? +searchParams.page : 1,
     pageSize: 3,
   })
+
   return (
     <>
       <div className="flex justify-between">

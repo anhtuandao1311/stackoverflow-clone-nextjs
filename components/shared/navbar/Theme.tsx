@@ -47,7 +47,7 @@ export default function Theme() {
                   localStorage.removeItem("theme")
                 }
               }}
-              className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400 focus:bg-slate-200"
+              className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400 focus:bg-light-800 cursor-pointer"
             >
               <Image
                 src={theme.icon}

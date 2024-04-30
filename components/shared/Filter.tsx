@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select"
 import { formUrlQuery } from "@/lib/utils"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 
 interface Props {
   filters: {
@@ -49,13 +50,13 @@ export default function Filter({
         >
           <SelectValue placeholder="Select a Filter" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="text-dark500_light700 small-regular border-none bg-light-900 dark:bg-dark-300">
           <SelectGroup>
             {filters.map((filter) => (
               <SelectItem
                 key={filter.value}
                 value={filter.value}
-                className="text-dark400_light900 background-light900_dark200"
+                className="px-4 py-3 focus:bg-light-800 dark:focus:bg-dark-400 cursor-pointer"
               >
                 {filter.name}
               </SelectItem>

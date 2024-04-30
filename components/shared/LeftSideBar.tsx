@@ -10,7 +10,7 @@ import { SignedOut } from "@clerk/nextjs"
 export default function LeftSideBar() {
   const pathname = usePathname()
   return (
-    <section className="background-light900_dark200 light-border sticky left-0 top-0 flex flex-col gap-24 overflow-y-auto border-r p-6 pt-3 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] custom-scrollbar">
+    <section className="background-light900_dark200 light-border sticky left-0 top-0 flex flex-col gap-16 overflow-y-auto border-r px-6 pb-8 pt-36 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] custom-scrollbar h-screen">
       <div className="flex flex-col gap-1">
         {sidebarLinks.map((link) => {
           const isActive = pathname === link.route
