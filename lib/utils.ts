@@ -143,11 +143,11 @@ export function removeDuplicateTags(tags: ITag[]) {
     seen.add(tag.name)
     return !duplicate
   })
-  let currentIndex = uniqueTags.length,
-    temporaryValue,
-    randomIndex
+  let currentIndex = uniqueTags.length
+  let temporaryValue
+  let randomIndex
 
-  while (0 !== currentIndex) {
+  while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex -= 1
     temporaryValue = uniqueTags[currentIndex]
