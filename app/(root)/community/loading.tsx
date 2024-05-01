@@ -13,7 +13,7 @@ export default function loading() {
         <Skeleton className="min-h-[56px] sm:min-w-[170px]" />
       </div>
 
-      <div className="mt-12 grid grid-cols-2 gap-5">
+      <div className="mt-12 grid grid-cols-1 xs:grid-cols-2 gap-5">
         {Array(4)
           .fill(0)
           .map((_, i) => (
