@@ -1,4 +1,5 @@
 import { BADGE_CRITERIA } from "@/constants"
+import { ITag } from "@/database/tag.model"
 import { BadgeCounts } from "@/types"
 import { type ClassValue, clsx } from "clsx"
 import queryString from "query-string"
@@ -133,4 +134,26 @@ export function assignBadges(params: {
   })
 
   return badgeCounts
+}
+
+export function removeDuplicateTags(tags: ITag[]) {
+  const seen = new Set()
+  const uniqueTags = tags.filter((tag) => {
+    const duplicate = seen.has(tag.name)
+    seen.add(tag.name)
+    return !duplicate
+  })
+  let currentIndex = uniqueTags.length,
+    temporaryValue,
+    randomIndex
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = uniqueTags[currentIndex]
+    uniqueTags[currentIndex] = uniqueTags[randomIndex]
+    uniqueTags[randomIndex] = temporaryValue
+  }
+
+  return uniqueTags
 }

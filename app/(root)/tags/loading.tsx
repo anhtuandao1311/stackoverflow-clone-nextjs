@@ -17,7 +17,7 @@ export default function loading() {
         {Array(6)
           .fill(0)
           .map((_, i) => (
-            <Skeleton key={i} className="h-44 w-full rounded-2xl" />
+            <Skeleton key={i} className="h-32 w-full rounded-2xl" />
           ))}
       </div>
     </section>

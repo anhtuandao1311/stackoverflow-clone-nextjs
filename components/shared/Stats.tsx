@@ -19,7 +19,7 @@ interface StatsCardProps {
 
 function StatsCard({ imgUrl, value, title }: StatsCardProps) {
   return (
-    <div className="light-border background-light900_dark300 flex flex-wrap items-center gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
+    <div className="light-border background-light900_dark300 flex flex-col justify-between gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
       <Image src={imgUrl} width={24} height={24} alt={title} />
       <div>
         <p className="paragraph-semibold text-dark200_light900">{value}</p>
@@ -37,8 +37,8 @@ export default function Stats({
   return (
     <div className="mt-10">
       <h4 className="h3-semibold text-dark200_light900">Stats</h4>
-      <div className="mt-5 grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-4">
-        <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-between gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
+      <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="light-border background-light900_dark300 flex flex-col justify-between gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
           <div>
             <p className="paragraph-semibold text-dark200_light900">
               {formatNumber(totalQuestions)}

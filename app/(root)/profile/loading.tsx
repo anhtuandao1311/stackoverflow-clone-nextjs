@@ -20,6 +20,16 @@ export default function loading() {
           <Skeleton className="h-40 w-full" />
         </div>
       </div>
+
+      <div className="mt-10">
+        <h4 className="h3-semibold text-dark200_light900">Tags</h4>
+        <div className="mt-5 flex w-full gap-3">
+          <Skeleton className="h-[29px] w-14" />
+          <Skeleton className="h-[29px] w-14" />
+          <Skeleton className="h-[29px] w-14" />
+          <Skeleton className="h-[29px] w-14" />
+        </div>
+      </div>
       <div className="mt-10 flex flex-col gap-6">
         <Skeleton className="w-44 h-11" />
         <Skeleton className="h-48 w-full" />

@@ -22,7 +22,7 @@ export default function loading() {
       </div>
 
       <div className="mt-10 hidden md:flex md:flex-wrap gap-3 ">
-        {Array(4)
+        {Array(3)
           .fill(0)
           .map((_, i) => (
             <Skeleton key={i} className="h-9 w-28" />

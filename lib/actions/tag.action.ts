@@ -1,5 +1,6 @@
 "use server"
 
+import Answer from "@/database/answer.model"
 import Question from "@/database/question.model"
 import Tag, { ITag } from "@/database/tag.model"
 import User from "@/database/user.model"
@@ -9,23 +10,38 @@ import {
   GetTopInteractedTagsParams,
 } from "@/lib/actions/shared"
 import { connectToDatabase } from "@/lib/mongoose"
+import { removeDuplicateTags } from "@/lib/utils"
 import { FilterQuery } from "mongoose"
 
 export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     await connectToDatabase()
-    const { userId } = params
+    const { userId, limit = 3 } = params
     const user = await User.findById(userId)
     if (!user) {
       throw new Error("User not found")
     }
 
+    const userQuestions = await Question.find({ author: userId }).populate({
+      path: "tags",
+      model: Tag,
+    })
+
+    const userAnswers = await Answer.find({ author: userId }).populate({
+      path: "question",
+      model: Question,
+      populate: { path: "tags", model: Tag },
+    })
+
+    const userTags = userQuestions
+      .map((question) => question.tags)
+      .concat(userAnswers.map((answer) => answer.question.tags))
+      .flat()
+
+    const uniqueTags = removeDuplicateTags(userTags)
+
     // find interactions of user
-    return [
-      { _id: "1", name: "tag1" },
-      { _id: "2", name: "tag2" },
-      { _id: "3", name: "tag3" },
-    ]
+    return uniqueTags.slice(0, limit)
   } catch (err) {
     console.log(err)
     throw err

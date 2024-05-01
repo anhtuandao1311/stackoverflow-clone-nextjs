@@ -25,7 +25,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
   try {
     await connectToDatabase()
 
-    const { page = 1, pageSize = 10, filter, searchQuery } = params
+    const { page = 1, pageSize = 10, filter, searchQuery, isLoggedIn } = params
     const skipAmount = (page - 1) * pageSize
     const query: FilterQuery<typeof User> = {}
     if (searchQuery) {
@@ -54,7 +54,13 @@ export async function getAllUsers(params: GetAllUsersParams) {
       .skip(skipAmount)
       .limit(pageSize)
       .sort(sortOptions)
-    const totalUsers = await User.countDocuments(query)
+
+    let totalUsers = 0
+    if (isLoggedIn) {
+      totalUsers = (await User.countDocuments(query)) - 1
+    } else {
+      totalUsers = await User.countDocuments(query)
+    }
     const numberOfPages = Math.ceil(totalUsers / pageSize)
     return { users, numberOfPages }
   } catch (err) {

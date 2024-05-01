@@ -1,5 +1,4 @@
 import RenderTag from "@/components/shared/RenderTag"
-import { Badge } from "@/components/ui/badge"
 import { IUser } from "@/database/user.model"
 import { getTopInteractedTags } from "@/lib/actions/tag.action"
 import Image from "next/image"
@@ -29,7 +28,7 @@ export default async function UserCard({ user }: Props) {
             {user.name}
           </h3>
           <p className="body-regular text-dark500_light500 mt-2">
-            {user.username}
+            @{user.username}
           </p>
         </div>
         <div className="mt-5">
@@ -45,7 +44,9 @@ export default async function UserCard({ user }: Props) {
               ))}
             </div>
           ) : (
-            <Badge>No tags yet</Badge>
+            <div className="text-dark500_light500 body-regular min-h-[29px] pt-1">
+              No tags yet
+            </div>
           )}
         </div>
       </article>

@@ -10,10 +10,16 @@ import ProfileLink from "@/components/shared/ProfileLink"
 import Stats from "@/components/shared/Stats"
 import QuestionTab from "@/components/shared/QuestionTab"
 import AnswerTab from "@/components/shared/AnswerTab"
+import { getTopInteractedTags } from "@/lib/actions/tag.action"
+import InteractedTags from "@/components/shared/InteractedTags"
 
 export default async function page({ params, searchParams }: URLProps) {
   const { userId: clerkId } = auth()
   const userInfo = await getUserInfo({ userId: params.id })
+  const interactedTags = await getTopInteractedTags({
+    userId: userInfo.user._id,
+    limit: 10,
+  })
   return (
     <>
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
@@ -54,7 +60,9 @@ export default async function page({ params, searchParams }: URLProps) {
             {userInfo.user.bio && (
               <>
                 <h4 className="h3-semibold text-dark200_light900 pt-4">Bio</h4>
-                <p className="paragraph pt-2">{userInfo.user.bio}</p>
+                <p className="paragraph pt-2 text-dark200_light800">
+                  {userInfo.user.bio}
+                </p>
               </>
             )}
           </div>
@@ -76,6 +84,7 @@ export default async function page({ params, searchParams }: URLProps) {
         totalAnswers={userInfo.totalAnswers}
         badgeCounts={userInfo.badgeCounts}
       />
+      <InteractedTags tags={interactedTags} />
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-questions" className="flex-1">
           <TabsList className="background-light800_dark400 min-h-[42px] p-1">

@@ -15,6 +15,7 @@ export default async function page({ searchParams }: SearchParamsProps) {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
     pageSize: 4,
+    isLoggedIn: Boolean(clerkId),
   })
   if (clerkId) {
     result.users = result.users.filter((user) => user.clerkId !== clerkId)
@@ -35,7 +36,7 @@ export default async function page({ searchParams }: SearchParamsProps) {
         />
       </div>
 
-      <section className="mt-12 grid grid-cols-2 gap-5">
+      <section className="mt-12 grid grid-cols-1 xs:grid-cols-2 gap-5">
         {result.users.length > 0 ? (
           result.users.map((user) => <UserCard key={user._id} user={user} />)
         ) : (

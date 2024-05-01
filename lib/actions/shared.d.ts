@@ -124,6 +124,7 @@ export interface GetAllUsersParams {
   pageSize?: number
   filter?: string
   searchQuery?: string // Add searchQuery parameter
+  isLoggedIn: boolean
 }
 
 export interface UpdateUserParams {
