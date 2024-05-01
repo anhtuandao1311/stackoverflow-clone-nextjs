@@ -16,12 +16,10 @@ export default function Navbar() {
           alt="HelpMeDevs Logo"
           className="mr-1"
         />
-        <p className="h2-bold font-spaceGrotesk text-dark100_light900 max-sm:hidden">
+        <p className="h2-bold font-spaceGrotesk text-dark100_light900">
           HelpMe
         </p>
-        <p className="h2-bold font-spaceGrotesk text-primary-500 max-sm:hidden">
-          Devs
-        </p>
+        <p className="h2-bold font-spaceGrotesk text-primary-500">Devs</p>
       </Link>
       <GlobalSearch />
       <div className="flex-between gap-5">
